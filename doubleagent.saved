@@ -1,0 +1,4 @@
+title(doubleagent).
+tz_arrow(28,21,'N',false).
+tz_arrow(21,30,'R',false).
+tz_arrow(30,23,'N',false).

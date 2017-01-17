@@ -1,0 +1,7 @@
+title(siegfried).
+tz_arrow(20,21,'P',false).
+tz_arrow(21,22,'L',false).
+tz_arrow(22,13,'R',false).
+tz_arrow(13,30,?,true).
+tz_arrow(30,12,'',true).
+tz_arrow(12,28,'',true).

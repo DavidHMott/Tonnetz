@@ -1,0 +1,9 @@
+title('Gondelfahrer, Schubert').
+tz_diatonic(20).
+tz_arrow(20,22,'PL',false).
+tz_arrow(22,20,'LP',false).
+tz_arrow(20,18,'LP',false).
+tz_arrow(18,20,'PL',false).
+tz_arrow(20,28,?,true).
+tz_arrow(28,22,?,true).
+tz_arrow(22,20,'LP',false).

@@ -1,0 +1,7 @@
+title('Der Wegweiser, Schubert, b22-41').
+tz_arrow(12,10,'LP',false).
+tz_arrow(10,11,'P',false).
+tz_arrow(11,13,'LP',false).
+tz_arrow(13,14,'L',false).
+tz_arrow(14,20,'LN',true).
+
