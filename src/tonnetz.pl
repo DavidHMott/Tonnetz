@@ -503,7 +503,7 @@ tz_doplaymidiTriangle(Tri):-
 
 %	(   SKIP=false ->
 	    Notes1=[A1:_,B1:_,C1:_],
-	    tz_playmidifile([A1,B1,C1]).
+	    tz_playmidifilenew([A1,B1,C1]).
 %	|   true).
 %
 %
@@ -513,7 +513,7 @@ tz_doplaymidiWZ(WZ):-
 	%	trace,
 	get(WZ,getAugChord,Notes),
 	format('~q~n',[Notes]),
-	tz_playmidifile(Notes).
+	tz_playmidifilenew(Notes).
 
 tz_dowriteLilyPondItem(Item):-
 	retractall(tz_lastTrianglePlayed(_,_)),
@@ -626,6 +626,36 @@ tz_noteNumber1('G',11).
 tz_noteNumber1('Gs',12).
 tz_noteNumber1('Af',12).
 
+tz_playmidifilenew(Notes):-
+	findall(X,
+	(   member(N,Notes),
+	    tz_noteNumber(N,NN),
+	    X=NN
+	),
+	NumberedNotes),
+	format('playing ~q~n', [NumberedNotes]),
+	tz_writemidi(NumberedNotes),
+	Cmd1='midi.bat temp',
+	shell(Cmd1,X),
+	format('~q~n',[X]).
+
+tz_writemidi(Notes):-
+    Offset is 56,
+	Notes=[A,B,C],
+	A1 is A+Offset,
+	B1 is B+Offset,
+	C1 is C+Offset,
+	open('temp.mid', write, MidiFile, [type(binary)]),
+	atom_codes(HexStr, [
+		0x4d,0x54,0x68,0x64,0x00,0x00,0x00,0x06,0x00,0x01,0x00,0x01,0x00,0x80,
+		0x4d,0x54,0x72,0x6b,0x00,0x00,0x00,0x14,0x80,0x00,0x91,
+		A1,0x60,0x00,
+		B1,0x60,0x00,
+		C1,0x60,0x83,
+		0x00,0xb1,0x7b,0x00,0x00,0xff,0x2f,0x00
+	]),
+	format(MidiFile, '~s', HexStr),
+	close(MidiFile).
 
 
 tz_playmidifile(Notes):-
@@ -673,7 +703,7 @@ getSavedFileName(File,ONOFF):-
 % pattern should be something like '.saved'
 getFileName(File,Pattern,ONOFF):-
 	new(FI,finder),
-	get(FI, file, ONOFF, Pattern, File).
+	get(FI, file, ONOFF, Pattern, 'saved', File).
 
 % pattern should be something like '.saved'
 getFileName(File,DefaultName,Ext,ONOFF):-
