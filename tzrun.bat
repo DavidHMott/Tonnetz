@@ -6,7 +6,7 @@ SET SwiplRoot=%ProgramFiles%\swipl
 IF NOT "%SwiplRoot=%"=="" GOTO win64
 SET SwiplRoot=%ProgramFiles(x86)%\swipl
 :win64
- 	
+
 if not exist "%cd%\bin" mkdir bin
 rem Recompiling tonnetz if QLF not found:
 IF NOT EXIST "%cd%\bin\tonnetz.qlf"	 (
